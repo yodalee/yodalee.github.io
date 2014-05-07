@@ -1,0 +1,50 @@
+.background {
+  background-color: #FFF7A2;
+  padding: 0 90px;
+}
+.container {
+  background-color: #FFF8B2;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 40px;
+}
+.text {
+  text-align: left;
+  font-size: medium;
+  font-family: serif;
+}
+.datasection {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.datalogo {
+  text-align: center;
+  height: 100px;
+}
+.datalogo img{
+  max-height: 100px;
+}
+.social_website {
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  max-height: 64px;
+}
+.social_website img {
+  max-height: 64px;
+}
+.personaldata {
+  text-align: left;
+}
+.title {
+  text-align: center;
+}
+.title1 {
+  text-align: left;
+  padding-left: 40px;
+  margin-bottom: 20px;
+}
+.title2 {
+  margin-bottom: 0px;
+}
