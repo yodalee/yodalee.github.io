@@ -1,0 +1,16 @@
+body {
+  background-color: black;
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.right {
+  text-align: right;
+}
+.left {
+  text-align: left;
+}
+.title {
+  padding-left: 20px;
+}
