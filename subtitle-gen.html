@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta property="og:image" content="img/yoda.jpg" />
+    <meta name="description" content="大師語錄產生器，(worship)" />
+    <title>Subtitle Generator</title>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<div class="content">
+    <h1>Subtitle Generator</h1>
+    <canvas id="canvas" width="300" height="400"></canvas>
+
+    <h2>Subtitle Text</h2>
+    <textarea id="text" placeholder="(worship)" rows="5" cols="40"></textarea>
+    <button id="preview">預覽</button>
+    <button id="download">下載</button>
+<!--script>
+window.onload = function(){
+    var textContent = document.getElementById("text");
+    var previewBtn = document.getElementById("preview");
+    var downloadBtn = document.getElementById("download");
+    var canvas = document.getElementById("canvas");
+
+    var context = canvas.getContext("2d");
+
+    // image area on canvas [(x0, y0), (x1, y1)]
+    var imgArea = [0, 0, 300, 300];
+    // text area on canvas [(x0, y0), (x1, y1)]
+    var textArea = [0, 300, 300, 400];
+    var lineHeight = 30;
+
+    var drawMaster = function() {
+        context.clearRect.apply(context, imgArea);
+        var img = document.getElementById(masterSelector.value);
+        context.drawImage.apply(context, [img].concat(imgArea));
+    }
+
+    var drawWords = function() {
+        context.fillStyle = "#fff";
+        context.fillRect.apply(context, textArea);
+
+        var textCenter = (textArea[0] + textArea[2])/2;
+
+        if(textContent.value.length>0){
+            var line = textContent.value.split("\n");
+            context.fillStyle = "#000";
+            context.font = "25pt Times New Roman";
+            context.textAlign = "center";
+            for(var i = 0; i<line.length; i++){
+                context.fillText(line[i], textCenter, textArea[1] + lineHeight*(i+1));
+            }
+
+        }
+
+    }
+
+    var gen = function(){
+        drawMaster();
+        drawWords();
+    };
+
+    previewBtn.onclick = function(){
+        ga("send","event","MasterQuote","Preview-"+masterSelector.value,textContent.value);
+        gen();
+    };
+
+    downloadBtn.onclick = function(){
+        ga("send","event","MasterQuote","Download-"+masterSelector.value,textContent.value);
+        gen();
+        var dataURL = canvas.toDataURL();
+        window.open(dataURL);
+    };
+
+    masterSelector.onchange = function() {
+        drawMaster();
+    };
+
+    // initial
+    drawMaster();
+};
+
+</script-->
+</body>
+</html>
