@@ -10,12 +10,35 @@
 <body>
 <div class="content">
     <h1>Subtitle Generator</h1>
-    <canvas id="canvas" width="300" height="400"></canvas>
+    <canvas id="canvas" width="300" height="400"></canvas></br>
+    <input type="file" id="fileUpload" />
 
     <h2>Subtitle Text</h2>
     <textarea id="text" placeholder="(worship)" rows="5" cols="40"></textarea>
     <button id="preview">預覽</button>
     <button id="download">下載</button>
+<script>
+window.onload = function() {
+  var canvas = document.getElementById("canvas");
+  var uploadBtn = document.getElementById("fileUpload");
+  var context = canvas.getContext("2d");
+  function readImage() {
+    if (this.files && this.files[0]) {
+      var FR= new FileReader();
+      FR.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+          context.drawImage(img, 0, 0);
+        };
+        img.src = e.target.result;
+      };
+      FR.readAsDataURL( this.files[0] );
+    }
+  }
+
+  uploadBtn.addEventListener("change", readImage, false);
+}
+</script>
 <!--script>
 window.onload = function(){
     var textContent = document.getElementById("text");
