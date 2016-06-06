@@ -69,18 +69,19 @@ window.onload = function() {
   }
   function drawText() {
     var textCenter = canvas.width/2;
-    var lineHeight = 30;
+    var fontSize = "100";
 
     if(textContent.value.length>0){
         var line = textContent.value.split("\n");
-        context.fillStyle = "#FFF";
-        context.font = "25pt Times New Roman";
+        context.font = fontSize + "px Times New Roman";
+        context.lineWidth = 4;
         context.textAlign = "center";
+        context.strokeStyle = "#000";
+        context.fillStyle = "#FFF";
         for(var i = 0; i<line.length; i++){
-          context.fillText(
-            line[i],
-            textCenter,
-            canvas.height - lineHeight*(line.length - i));
+          var y = canvas.height - fontSize*(line.length - i - 1) - fontSize * 0.2;
+          context.strokeText(line[i], textCenter, y);
+          context.fillText( line[i], textCenter, y);
         }
     }
   }
