@@ -28,10 +28,17 @@
 window.onload = function() {
   var canvas = document.getElementById("canvas");
   var uploadBtn = document.getElementById("fileUpload");
+  var textContent = document.getElementById("text");
+  var previewBtn = document.getElementById("preview");
+  var downloadBtn = document.getElementById("download");
   var context = canvas.getContext("2d");
+
   var copyCanvas = document.createElement("canvas");
   var copyContext = copyCanvas.getContext("2d");
+
   var maxWidth = 640;
+  var lineHeight = 30;
+
   function readImage() {
     if (this.files && this.files[0]) {
       var FR= new FileReader();
@@ -48,7 +55,7 @@ window.onload = function() {
 
           canvas.width = img.width * ratio;
           canvas.height = img.height * ratio;
-          context.drawImage(copyCanvas, 0, 0, copyCanvas.width, copyCanvas.height, 0, 0, canvas.width, canvas.height);
+          gen();
         };
         img.src = e.target.result;
       };
@@ -56,7 +63,42 @@ window.onload = function() {
     }
   }
 
+  function drawImage() {
+    context.drawImage(copyCanvas, 0, 0, copyCanvas.width, copyCanvas.height, 0, 0, canvas.width, canvas.height);
+  }
+  function drawText() {
+    var textCenter = canvas.width/2;
+    var lineHeight = 30;
+
+    if(textContent.value.length>0){
+        var line = textContent.value.split("\n");
+        context.fillStyle = "#FFF";
+        context.font = "25pt Times New Roman";
+        context.textAlign = "center";
+        for(var i = 0; i<line.length; i++){
+          context.fillText(
+            line[i],
+            textCenter,
+            canvas.height - lineHeight*(line.length - i));
+        }
+    }
+  }
+
+  function gen() {
+    drawImage()
+    drawText()
+  }
+
   uploadBtn.addEventListener("change", readImage, false);
+  previewBtn.onclick = function() {
+    gen();
+  }
+  downloadBtn.onclick = function() {
+    gen();
+    var dataURL = canvas.toDataURL();
+    window.open(dataURL);
+  }
+
 }
 </script>
 <!--script>
