@@ -5,6 +5,15 @@
     <title>Subtitle Generator</title>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <style type="text/css" media="screen" src="css/></style>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-77945119-2', 'auto');
+      ga('send', 'pageview');
+    </script>
 </head>
 <style type="text/css" media="screen">
 .content {
@@ -109,71 +118,5 @@ window.onload = function() {
 
 }
 </script>
-<!--script>
-window.onload = function(){
-    var textContent = document.getElementById("text");
-    var previewBtn = document.getElementById("preview");
-    var downloadBtn = document.getElementById("download");
-    var canvas = document.getElementById("canvas");
-
-    var context = canvas.getContext("2d");
-
-    // image area on canvas [(x0, y0), (x1, y1)]
-    var imgArea = [0, 0, 300, 300];
-    // text area on canvas [(x0, y0), (x1, y1)]
-    var textArea = [0, 300, 300, 400];
-    var lineHeight = 30;
-
-    var drawMaster = function() {
-        context.clearRect.apply(context, imgArea);
-        var img = document.getElementById(masterSelector.value);
-        context.drawImage.apply(context, [img].concat(imgArea));
-    }
-
-    var drawWords = function() {
-        context.fillStyle = "#fff";
-        context.fillRect.apply(context, textArea);
-
-        var textCenter = (textArea[0] + textArea[2])/2;
-
-        if(textContent.value.length>0){
-            var line = textContent.value.split("\n");
-            context.fillStyle = "#000";
-            context.font = "25pt Times New Roman";
-            context.textAlign = "center";
-            for(var i = 0; i<line.length; i++){
-                context.fillText(line[i], textCenter, textArea[1] + lineHeight*(i+1));
-            }
-
-        }
-
-    }
-
-    var gen = function(){
-        drawMaster();
-        drawWords();
-    };
-
-    previewBtn.onclick = function(){
-        ga("send","event","MasterQuote","Preview-"+masterSelector.value,textContent.value);
-        gen();
-    };
-
-    downloadBtn.onclick = function(){
-        ga("send","event","MasterQuote","Download-"+masterSelector.value,textContent.value);
-        gen();
-        var dataURL = canvas.toDataURL();
-        window.open(dataURL);
-    };
-
-    masterSelector.onchange = function() {
-        drawMaster();
-    };
-
-    // initial
-    drawMaster();
-};
-
-</script-->
 </body>
 </html>
