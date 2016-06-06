@@ -21,10 +21,16 @@
     <canvas id="canvas" width="600" height="600"></canvas></br>
     <input type="file" id="fileUpload" />
 
-    <h2>Subtitle Text</h2>
-    <textarea id="text" placeholder="(worship)" rows="5" cols="40"></textarea></br>
     <button id="preview">預覽</button>
     <button id="download">下載</button>
+    <h2>Subtitle Text</h2>
+    <textarea id="text" placeholder="(worship)" rows="5" cols="40"></textarea>
+    <h2>Subtitle Size</h2>
+    <input id="textsize" type="number" value=30 />
+    <h2>Subtitle Color</h2>
+    <input id="textcolor" type="color" value="#FFFFFF"/>
+    <h2>Subtitle Outline Color</h2>
+    <input id="strokecolor" type="color" />
 <script>
 window.onload = function() {
   var canvas = document.getElementById("canvas");
@@ -69,15 +75,15 @@ window.onload = function() {
   }
   function drawText() {
     var textCenter = canvas.width/2;
-    var fontSize = "100";
+    var fontSize = textSize = document.getElementById("textsize").value;
 
     if(textContent.value.length>0){
         var line = textContent.value.split("\n");
         context.font = fontSize + "px Times New Roman";
         context.lineWidth = 4;
         context.textAlign = "center";
-        context.strokeStyle = "#000";
-        context.fillStyle = "#FFF";
+        context.strokeStyle = document.getElementById("strokecolor");
+        context.fillStyle = document.getElementById("textcolor").value;
         for(var i = 0; i<line.length; i++){
           var y = canvas.height - fontSize*(line.length - i - 1) - fontSize * 0.2;
           context.strokeText(line[i], textCenter, y);
