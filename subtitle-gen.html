@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Subtitle Generator</title>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <style type="text/css" media="screen" src="css/></style>
+</head>
+<style type="text/css" media="screen">
+.content {
+  margin: 0;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 640px;
+}
+</style>
+<body>
+<div class="content">
+    <h1>Subtitle Generator</h1>
+    <a href="https://github.com/yodalee/yodalee.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+    <canvas id="canvas" width="600" height="600"></canvas></br>
+    <input type="file" id="fileUpload" />
+
+    <button id="preview">預覽</button>
+    <button id="download">下載</button>
+    <h2>Subtitle Text</h2>
+    <textarea id="text" placeholder="(worship)" rows="5" cols="40"></textarea>
+    <h2>Subtitle Size</h2>
+    <input id="textsize" type="number" value=30 />
+    <h2>Subtitle Color</h2>
+    <input id="textcolor" type="color" value="#FFFFFF"/>
+    <h2>Subtitle Outline Color</h2>
+    <input id="strokecolor" type="color" />
+<script>
+window.onload = function() {
+  var canvas = document.getElementById("canvas");
+  var uploadBtn = document.getElementById("fileUpload");
+  var textContent = document.getElementById("text");
+  var previewBtn = document.getElementById("preview");
+  var downloadBtn = document.getElementById("download");
+  var context = canvas.getContext("2d");
+
+  var copyCanvas = document.createElement("canvas");
+  var copyContext = copyCanvas.getContext("2d");
+
+  var maxWidth = 640;
+  var lineHeight = 30;
+
+  function readImage() {
+    if (this.files && this.files[0]) {
+      var FR= new FileReader();
+      FR.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+          var ratio = 1;
+          if (img.width > maxWidth) {
+            ratio = maxWidth / img.width;
+          }
+          copyCanvas.width = img.width;
+          copyCanvas.height = img.height;
+          copyContext.drawImage(img, 0, 0);
+
+          canvas.width = img.width * ratio;
+          canvas.height = img.height * ratio;
+          gen();
+        };
+        img.src = e.target.result;
+      };
+      FR.readAsDataURL( this.files[0] );
+    }
+  }
+
+  function drawImage() {
+    context.drawImage(copyCanvas, 0, 0, copyCanvas.width, copyCanvas.height, 0, 0, canvas.width, canvas.height);
+  }
+  function drawText() {
+    var textCenter = canvas.width/2;
+    var fontSize = textSize = document.getElementById("textsize").value;
+
+    if(textContent.value.length>0){
+        var line = textContent.value.split("\n");
+        context.font = fontSize + "px Times New Roman";
+        context.lineWidth = 4;
+        context.textAlign = "center";
+        context.strokeStyle = document.getElementById("strokecolor");
+        context.fillStyle = document.getElementById("textcolor").value;
+        for(var i = 0; i<line.length; i++){
+          var y = canvas.height - fontSize*(line.length - i - 1) - fontSize * 0.2;
+          context.strokeText(line[i], textCenter, y);
+          context.fillText( line[i], textCenter, y);
+        }
+    }
+  }
+
+  function gen() {
+    drawImage()
+    drawText()
+  }
+
+  uploadBtn.addEventListener("change", readImage, false);
+  previewBtn.onclick = function() {
+    gen();
+  }
+  downloadBtn.onclick = function() {
+    gen();
+    var dataURL = canvas.toDataURL();
+    window.open(dataURL);
+  }
+
+}
+</script>
+<!--script>
+window.onload = function(){
+    var textContent = document.getElementById("text");
+    var previewBtn = document.getElementById("preview");
+    var downloadBtn = document.getElementById("download");
+    var canvas = document.getElementById("canvas");
+
+    var context = canvas.getContext("2d");
+
+    // image area on canvas [(x0, y0), (x1, y1)]
+    var imgArea = [0, 0, 300, 300];
+    // text area on canvas [(x0, y0), (x1, y1)]
+    var textArea = [0, 300, 300, 400];
+    var lineHeight = 30;
+
+    var drawMaster = function() {
+        context.clearRect.apply(context, imgArea);
+        var img = document.getElementById(masterSelector.value);
+        context.drawImage.apply(context, [img].concat(imgArea));
+    }
+
+    var drawWords = function() {
+        context.fillStyle = "#fff";
+        context.fillRect.apply(context, textArea);
+
+        var textCenter = (textArea[0] + textArea[2])/2;
+
+        if(textContent.value.length>0){
+            var line = textContent.value.split("\n");
+            context.fillStyle = "#000";
+            context.font = "25pt Times New Roman";
+            context.textAlign = "center";
+            for(var i = 0; i<line.length; i++){
+                context.fillText(line[i], textCenter, textArea[1] + lineHeight*(i+1));
+            }
+
+        }
+
+    }
+
+    var gen = function(){
+        drawMaster();
+        drawWords();
+    };
+
+    previewBtn.onclick = function(){
+        ga("send","event","MasterQuote","Preview-"+masterSelector.value,textContent.value);
+        gen();
+    };
+
+    downloadBtn.onclick = function(){
+        ga("send","event","MasterQuote","Download-"+masterSelector.value,textContent.value);
+        gen();
+        var dataURL = canvas.toDataURL();
+        window.open(dataURL);
+    };
+
+    masterSelector.onchange = function() {
+        drawMaster();
+    };
+
+    // initial
+    drawMaster();
+};
+
+</script-->
+</body>
+</html>
