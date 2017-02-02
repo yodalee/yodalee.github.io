@@ -55,6 +55,7 @@ window.onload = function() {
   var lineHeight = 30;
 
   function readImage() {
+    ga('send', 'event', 'Graph', 'upload image');
     if (this.files && this.files[0]) {
       var FR= new FileReader();
       FR.onload = function(e) {
@@ -110,6 +111,7 @@ window.onload = function() {
     gen();
   }
   downloadBtn.onclick = function() {
+    ga('send', 'event', 'Graph', 'download');
     gen();
     var dataURL = canvas.toDataURL();
     window.open(dataURL);
